@@ -1,0 +1,124 @@
+version: '3.8'
+
+services:
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: pass
+
+  mysql-users:
+    image: mysql:8
+    container_name: mysql-users
+    restart: always
+    environment:
+      MYSQL_DATABASE: users
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+
+  postgres-products:
+    image: postgres:15
+    container_name: postgres-products
+    restart: always
+    environment:
+      POSTGRES_DB: products
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+    ports:
+      - "5432:5432"
+
+  mongo-orders:
+    image: mongo:6
+    container_name: mongo-orders
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: orders
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pass
+
+  postgres-payments:
+    image: postgres:15
+    container_name: postgres-payments
+    restart: always
+    environment:
+      POSTGRES_DB: payments
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+    ports:
+      - "5433:5432"
+
+  gateway:
+    build: ./gateway
+    depends_on:
+      - rabbitmq
+    ports:
+      - "3000:3000"
+    environment:
+      RABBITMQ_URL: amqp://user:pass@rabbitmq:5672
+
+  users:
+    build: ./users
+    depends_on:
+      - mysql-users
+      - rabbitmq
+    environment:
+      DB_TYPE: mysql
+      DB_HOST: mysql-users
+      DB_PORT: 3306
+      DB_USERNAME: user
+      DB_PASSWORD: pass
+      DB_NAME: users
+      RABBITMQ_URL: amqp://user:pass@rabbitmq:5672
+
+  products:
+    build: ./products
+    depends_on:
+      - postgres-products
+      - rabbitmq
+    environment:
+      DB_TYPE: postgres
+      DB_HOST: postgres-products
+      DB_PORT: 5432
+      DB_USERNAME: user
+      DB_PASSWORD: pass
+      DB_NAME: products
+      RABBITMQ_URL: amqp://user:pass@rabbitmq:5672
+
+  orders:
+    build: ./orders
+    depends_on:
+      - mongo-orders
+      - rabbitmq
+    environment:
+      MONGO_URI: mongodb://root:pass@mongo-orders:27017/orders?authSource=admin
+      RABBITMQ_URL: amqp://user:pass@rabbitmq:5672
+
+  payments:
+    build: ./payments
+    depends_on:
+      - postgres-payments
+      - rabbitmq
+    environment:
+      DB_TYPE: postgres
+      DB_HOST: postgres-payments
+      DB_PORT: 5432
+      DB_USERNAME: user
+      DB_PASSWORD: pass
+      DB_NAME: payments
+      RABBITMQ_URL: amqp://user:pass@rabbitmq:5672
+
+  notifications:
+    build: ./notifications
+    depends_on:
+      - rabbitmq
+    environment:
+      RABBITMQ_URL: amqp://user:pass@rabbitmq:5672

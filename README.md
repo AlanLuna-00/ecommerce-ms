@@ -44,7 +44,7 @@ Este proyecto es una aplicación backend basada en **microservicios** con **comu
 | `users`        | NestJS    | MySQL         | Usa TypeORM para modelar entidades y gestiona la seguridad JWT.     |
 | `products`     | NestJS    | PostgreSQL    | Administra productos y stock. Conexión relacional con TypeORM.      |
 | `orders`       | NestJS    | MongoDB       | Permite usar estructuras embebidas para representar ítems de compra.|
-| `payments`     | NestJS    | Redis         | Almacena tokens de pago o resultados temporales. Comunicación por eventos.|
+| `payments`     | NestJS    | PostgreSQL    | Registra pagos de manera persistente y confiable.                   |
 | `notifications`| NestJS    | (Opcional)    | Puede usar Redis como cola o simplemente procesar eventos entrantes.|
 
 ---
