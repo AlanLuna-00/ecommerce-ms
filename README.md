@@ -38,14 +38,14 @@ Este proyecto es una aplicación backend basada en **microservicios** con **comu
 
 ## 📦 Tecnologías utilizadas por servicio
 
-| Servicio       | Framework | Base de Datos | Descripción técnica                                                 |
-|----------------|-----------|---------------|----------------------------------------------------------------------|
-| `gateway`      | NestJS    | —             | Maneja las rutas públicas y documentación centralizada (Swagger).   |
-| `users`        | NestJS    | MySQL         | Usa TypeORM para modelar entidades y gestiona la seguridad JWT.     |
-| `products`     | NestJS    | PostgreSQL    | Administra productos y stock. Conexión relacional con TypeORM.      |
-| `orders`       | NestJS    | MongoDB       | Permite usar estructuras embebidas para representar ítems de compra.|
-| `payments`     | NestJS    | PostgreSQL    | Registra pagos de manera persistente y confiable.                   |
-| `notifications`| NestJS    | (Opcional)    | Puede usar Redis como cola o simplemente procesar eventos entrantes.|
+| Servicio       | Framework | Base de Datos    | Descripción técnica                                                 |
+|----------------|-----------|------------------|----------------------------------------------------------------------|
+| `gateway`      | NestJS    | —                | Maneja las rutas públicas y documentación centralizada (Swagger).   |
+| `users`        | NestJS    | MySQL            | Usa TypeORM para modelar entidades y gestiona la seguridad JWT.     |
+| `products`     | NestJS    | PostgreSQL       | Administra productos y stock. Conexión relacional con TypeORM.      |
+| `orders`       | NestJS    | MongoDB          | Permite usar estructuras embebidas para representar ítems de compra.|
+| `payments`     | NestJS    | PostgreSQL       | Registra pagos de manera persistente y confiable.                   |
+| `notifications`| NestJS    | Redis (Opcional) | Puede usar Redis como cola o simplemente procesar eventos entrantes.|
 
 ---
 

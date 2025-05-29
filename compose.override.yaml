@@ -1,0 +1,95 @@
+services:
+  rabbitmq:
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  mysql-users:
+    ports:
+      - "3306:3306"
+    env_file:
+      - .env.development
+
+  postgres-products:
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env.development
+
+  mongo-orders:
+    ports:
+      - "27017:27017"
+    env_file:
+      - .env.development
+
+  postgres-payments:
+    ports:
+      - "5433:5432"
+    env_file:
+      - .env.development
+
+  gateway:
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./gateway:/app
+      - /app/node_modules
+    command: npm run start:dev
+    env_file:
+      - .env.development
+
+  users:
+    build:
+      context: ./users
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./users:/app
+      - /app/node_modules
+    command: npm run start:dev
+    env_file:
+      - .env.development
+
+  products:
+    build:
+      context: ./products
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./products:/app
+      - /app/node_modules
+    command: npm run start:dev
+    env_file:
+      - .env.development
+
+  orders:
+    build:
+      context: ./orders
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./orders:/app
+      - /app/node_modules
+    command: npm run start:dev
+    env_file:
+      - .env.development
+
+  payments:
+    build:
+      context: ./payments
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./payments:/app
+      - /app/node_modules
+    command: npm run start:dev
+    env_file:
+      - .env.development
+
+  notifications:
+    build:
+      context: ./notifications
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./notifications:/app
+      - /app/node_modules
+    command: npm run start:dev
+    env_file:
+      - .env.development
