@@ -1,8 +1,8 @@
-import {AppConfig} from "./config.type";
+
 
 export const CONFIG_KEYS = {
-  DATABASE: 'database' as keyof AppConfig,
-  RABBITMQ: 'rabbitmq' as keyof AppConfig,
+  DATABASE: 'database',
+  RABBITMQ: 'rabbitmq'
 };
 
 export const QUEUE_NAMES = {

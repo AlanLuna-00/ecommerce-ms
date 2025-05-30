@@ -4,6 +4,7 @@ import { User } from './user.entity';
 import { UserService } from './user.service';
 import { JwtModule } from '@nestjs/jwt';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { env } from '../../config/env';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         name: 'RABBITMQ_SERVICE',
         transport: Transport.RMQ,
         options: {
-          urls: [process.env.RABBITMQ_URL!],
+          urls: [env.rabbitmq.url],
           queue: 'user_queue',
           queueOptions: {
             durable: false,
