@@ -1,10 +1,7 @@
-services:
 
+services:
   rabbitmq:
     image: rabbitmq:3-management
-    ports:
-      - "5672:5672"
-      - "15672:15672"
     env_file:
       - .env
 
@@ -12,8 +9,6 @@ services:
     image: mysql:8
     container_name: mysql-users
     restart: always
-    ports:
-      - "3306:3306"
     env_file:
       - .env
 
@@ -21,8 +16,6 @@ services:
     image: postgres:15
     container_name: postgres-products
     restart: always
-    ports:
-      - "5432:5432"
     env_file:
       - .env
 
@@ -30,8 +23,6 @@ services:
     image: mongo:6
     container_name: mongo-orders
     restart: always
-    ports:
-      - "27017:27017"
     env_file:
       - .env
 
@@ -39,8 +30,6 @@ services:
     image: postgres:15
     container_name: postgres-payments
     restart: always
-    ports:
-      - "5433:5432"
     env_file:
       - .env
 
